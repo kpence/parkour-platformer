@@ -54,7 +54,8 @@ void GameScreen::render(sf::RenderWindow &window) {
     // center camera
     auto& ws = Game::instance().window_size;
     auto& cam = Game::instance().camera_pos;
-    cam = { m_player_test->x() - ws.x/2, m_player_test->y() - ws.y/2 };
+    cam = { (cam.x + m_player_test->x() - ws.x/2)/2
+           , (cam.y + m_player_test->y() - ws.y/2)/2 };
     if (cam.x < 0) cam.x = 0;
     if (cam.y < 0) cam.y = 0;
 

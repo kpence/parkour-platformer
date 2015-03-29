@@ -33,6 +33,16 @@ std::unique_ptr<State> RollState::handle_input() {
         return std::move(std::unique_ptr<State>(new IdleState(m_parent)));
     }
 
+    // Move
+    if ( timer > sf::Time::Zero ) {
+        for (int dir : { D_RIGHT, D_LEFT })
+         if (m_parent.m_input->key_down((dir == D_RIGHT) ? "right":"left"))
+        {
+            float f = (m_parent.dir() == dir) ? 2:1;
+            m_parent.m_physics->set_dx((dir == D_RIGHT) ? f:-f);
+        }
+    }
+
     // q_roll
     if (!m_parent.m_input->key_down("roll"))
         can_q_roll = true;

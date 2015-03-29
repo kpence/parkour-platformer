@@ -10,6 +10,9 @@ WallSlideState::WallSlideState(Entity &parent)
 }
 
 std::unique_ptr<State> WallSlideState::handle_input() {
+    if (m_parent.m_physics->on_ground())
+        return std::move(std::unique_ptr<State>(new LandState(m_parent)));
+
     if (timer > sf::seconds(.1))
     {
         if (!m_parent.m_physics->collision_at_dir[m_parent.dir()]) {

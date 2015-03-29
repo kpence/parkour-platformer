@@ -8,7 +8,7 @@ FallState::FallState(Entity &parent)
 
 std::unique_ptr<State> FallState::handle_input()
 {
-    if (m_parent.m_physics->on_ground() && timer > sf::seconds(.15))
+    if (m_parent.m_physics->on_ground())// && timer > sf::seconds(.05))
         return std::move(std::unique_ptr<State>(new LandState(m_parent)));
 
     if (m_parent.m_physics->on_ground())
