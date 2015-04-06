@@ -11,6 +11,9 @@ public:
 	Component(Entity* parent);
 
     virtual ~Component() { };
+
+    virtual void update(float dt) { };
+
 protected:
 	Entity* m_parent;
 };

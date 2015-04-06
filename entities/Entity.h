@@ -9,6 +9,7 @@
 #include "../components/AnimationComponent.h"
 #include "../components/StateComponent.h"
 #include "../components/InputComponent.h"
+#include "../components/AIComponent.h"
 
 class Screen;
 
@@ -27,6 +28,7 @@ public:
 
 	void  set_x(float x);
 	void  set_y(float y);
+	sf::Vector2f pos();
 	float x();
 	float y();
 	void  set_dir(int dir);

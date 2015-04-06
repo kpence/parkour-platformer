@@ -9,6 +9,10 @@ void Entity::set_y(float y) {
 	m_position.y = y;
 }
 
+sf::Vector2f Entity::pos() {
+	return m_position;
+}
+
 float Entity::x() {
 	return m_position.x;
 }

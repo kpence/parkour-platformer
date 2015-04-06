@@ -4,7 +4,8 @@
 #include "StateIncludes.h"
 
 JumpState::JumpState(Entity &parent) : State(parent, "prep-jump")
-                                     , timer(sf::Time::Zero) {
+                                     , timer(sf::Time::Zero)
+                                     , m_queue(Q_NONE) {
 }
 
 std::unique_ptr<State> JumpState::handle_input() {
@@ -20,7 +21,10 @@ std::unique_ptr<State> JumpState::handle_input() {
             return std::move(std::unique_ptr<State>(new FallState(m_parent)));
         }
 
-        if (m_parent.m_input->key_pressed("dive") && timer > sf::seconds(.2))
+        if (m_parent.m_input->key_pressed("dive"))
+            m_queue = Q_DIVE;
+
+        if (m_queue == Q_DIVE && timer > sf::seconds(.2))
             return std::move(std::unique_ptr<State>(new DiveState(m_parent)));
 
         for (int dir : {D_RIGHT,D_LEFT})

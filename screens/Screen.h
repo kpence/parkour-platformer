@@ -21,7 +21,7 @@ public:
 	
 	InputPtr m_input = nullptr;
 
-    std::vector<Entity*> solid_entities;
+    std::vector<Entity*> solid_entities, ally_entities, active_entities, updating_entities;
 
 protected:
 	Game &game;

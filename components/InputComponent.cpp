@@ -1,5 +1,6 @@
 #include "InputComponent.h"
 #include <algorithm>
+#include "../Game.h"
 
 InputComponent::InputComponent(Entity* parent) : Component(parent) {
     str_to_key["right"] = { sf::Keyboard::Right };
@@ -14,16 +15,11 @@ InputComponent::InputComponent(Entity* parent) : Component(parent) {
     str_to_key["cancel"] = { sf::Keyboard::X };
 }
 
+void InputComponent::update(float dt) {
+}
+
 void InputComponent::set_events(std::vector<sf::Event>* p) {
     m_events = p;
-}
-
-void InputComponent::clear_input_events() {
-    m_events->clear();
-}
-
-void InputComponent::push_input_events(const sf::Event& ev) {
-    m_events->push_back(ev);
 }
 
 // pressed
@@ -38,7 +34,7 @@ bool InputComponent::key_pressed(std::vector<int> keys) {
         [&](int i){ return key_pressed(i); });
 }
 
-bool InputComponent::key_pressed(std::string keystr) {
+bool InputComponent::key_pressed(const std::string& keystr) {
     return key_pressed(str_to_key[keystr]);
 }
 
@@ -59,7 +55,7 @@ bool InputComponent::key_released(std::vector<int> keys) {
         [&](int i){ return key_released(i); });
 }
 
-bool InputComponent::key_released(std::string keystr) {
+bool InputComponent::key_released(const std::string& keystr) {
     return key_released(str_to_key[keystr]);
 }
 
@@ -78,7 +74,7 @@ bool InputComponent::key_down(std::vector<int> keys) {
         [&](int i){ return key_down(i); });
 }
 
-bool InputComponent::key_down(std::string keystr) {
+bool InputComponent::key_down(const std::string& keystr) {
     return key_down(str_to_key[keystr]);
 }
 

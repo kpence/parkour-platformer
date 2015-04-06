@@ -10,28 +10,29 @@ public:
 	InputComponent(Entity* parent);
     virtual ~InputComponent() { }
 
+    virtual void update(float dt);
+
     std::map<std::string, std::vector<int>> str_to_key;
+
+	virtual bool key_pressed(const std::string& keystr);
+	virtual bool key_pressed(std::vector<std::string> keystrs);
+
+	virtual bool key_down(const std::string& keystr);
+	virtual bool key_down(std::vector<std::string> keystrs);
+
+	virtual bool key_released(const std::string& keystr);
+	virtual bool key_released(std::vector<std::string> keystrs);
 
 	bool key_pressed(int key);
 	bool key_pressed(std::vector<int> keys);
-	bool key_pressed(std::string keystr);
-	bool key_pressed(std::vector<std::string> keystrs);
 
 	bool key_down(int key);
 	bool key_down(std::vector<int> keys);
-	bool key_down(std::string keystr);
-	bool key_down(std::vector<std::string> keystrs);
 
 	bool key_released(int key);
 	bool key_released(std::vector<int> keys);
-	bool key_released(std::string keystr);
-	bool key_released(std::vector<std::string> keystrs);
 
     void set_events(std::vector<sf::Event>* p);
-
-protected:
-	void clear_input_events();
-	void push_input_events(const sf::Event& ev);
 
 private:
     std::vector<sf::Event>* m_events;

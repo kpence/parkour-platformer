@@ -29,7 +29,9 @@ public:
 	void play_animation(const std::string &id, sf::Time frame_time);
 
 	void add_frame(const std::string &id, sf::IntRect intrect);
+    void set_offset(const sf::Vector2f &os);
 private:
+    sf::Vector2f offset;
 	sf::Sprite m_sprite;
 	std::map<std::string, std::unique_ptr<Animation>> m_animations;
 	Animation* m_current_animation;

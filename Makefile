@@ -18,8 +18,7 @@ CFLAGS = -g -Wall -std=c++11
 SRCS = main.cpp Animation.cpp Game.cpp Level.cpp
 
 # components/
-SRCS += components/Component.cpp components/AnimationComponent.cpp components/InputComponent.cpp components/PhysicsComponent.cpp components/StateComponent.cpp
-
+SRCS += components/Component.cpp components/AnimationComponent.cpp components/InputComponent.cpp components/PhysicsComponent.cpp components/StateComponent.cpp components/AIComponent.cpp
 # entities/
 SRCS += entities/Player.cpp entities/Entity.cpp entities/SolidBlock.cpp
 

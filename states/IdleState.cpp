@@ -14,7 +14,7 @@ std::unique_ptr<State> IdleState::handle_input() {
     if (!m_parent.m_physics->on_ground())
         return std::move(std::unique_ptr<State>(new FallState(m_parent)));
 
-    else if (m_parent.m_input->key_pressed("down")
+    else if (m_parent.m_input->key_down("down")
           && !m_parent.m_input->key_down("roll")
           && !m_parent.m_physics->solid_at_point(bp)
           && animation_id == "idle")

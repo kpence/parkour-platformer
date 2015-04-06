@@ -3,7 +3,7 @@
 #include "../Logger.h"
 #include "../entities/Entity.h"
 
-AnimationComponent::AnimationComponent(Entity* parent) : Component(parent) {
+AnimationComponent::AnimationComponent(Entity* parent) : Component(parent), offset({0,0}) {
 	m_current_animation = nullptr;
 }
 
@@ -13,7 +13,7 @@ void AnimationComponent::update(float dt) {
 
     auto& cam = Game::instance().camera_pos;
 
-	m_sprite.setPosition(x-cam.x, m_parent->y()-cam.y);
+	m_sprite.setPosition(x-cam.x+offset.x, m_parent->y()-cam.y+offset.y);
 
 	if (m_current_animation != nullptr)
 		m_current_animation->update(dt);
@@ -71,4 +71,8 @@ void AnimationComponent::play_animation(const std::string &id) {
 
     m_current_animation = m_animations[id].get();
     m_current_animation->activate();
+}
+
+void AnimationComponent::set_offset(const sf::Vector2f &os) {
+    offset = { os.x, os.y };
 }

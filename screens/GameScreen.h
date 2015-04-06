@@ -15,7 +15,7 @@ public:
 	void update(float dt);
 	void render(sf::RenderWindow &window);
 private:
-    std::unique_ptr<Player> m_player_test; //TODO testing
+    std::unique_ptr<Player> m_ai_test, m_player_test; //TODO testing
     std::vector<std::unique_ptr<SolidBlock>> m_test_blocks; //TODO testing
 	void handle_input();
 };

@@ -7,6 +7,10 @@ LandState::LandState(Entity &parent)
 }
 
 std::unique_ptr<State> LandState::handle_input() {
+    sf::Vector2f bp = { (m_parent.dir() == D_RIGHT)
+              ? m_parent.x() + m_parent.width() : m_parent.x()
+              , m_parent.y() + m_parent.height() };
+
     if (!m_parent.m_physics->on_ground())
         return std::move(std::unique_ptr<State>(new FallState(m_parent)));
 
@@ -20,7 +24,8 @@ std::unique_ptr<State> LandState::handle_input() {
         // JUMP
         else if (m_queue == Q_JUMP)
             return std::move(std::unique_ptr<State>(new JumpState(m_parent)));
-// ROLL
+
+        // ROLL
         else if (!m_parent.m_input->key_down("roll") && m_queue == Q_ROLL)
         {
             m_parent.m_animation->play_animation_dir("idle");
@@ -44,6 +49,9 @@ std::unique_ptr<State> LandState::handle_input() {
     }
 
     // Move
+    if ( !m_parent.m_input->key_down("down")
+          || m_parent.m_input->key_down("roll")
+          || m_parent.m_physics->solid_at_point(bp) )
     for (int dir : { D_RIGHT, D_LEFT })
      if (m_parent.m_input->key_down((dir == D_RIGHT) ? "right":"left"))
     {
