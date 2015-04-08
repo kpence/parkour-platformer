@@ -4,7 +4,7 @@
 #include "StateIncludes.h"
 
 WallJumpState::WallJumpState(Entity &parent)
-  : State(parent, "prep-jump"), timer(sf::Time::Zero), m_queue(Q_NONE) {
+  : State(parent, "prep-jump"), timer(sf::Time::Zero) {
 }
 
 std::unique_ptr<State> WallJumpState::handle_input() {

@@ -18,8 +18,6 @@
 class EdgeLeanState : public State
 {
 public:
-    enum { Q_NONE, Q_TURN, Q_ROLL, Q_JUMP };
-
     EdgeLeanState(Entity &parent);
 
 	void update(float dt);
@@ -29,7 +27,6 @@ private:
     sf::Time timer;
     sf::Vector2f bp;
     bool active, turning, can_q_roll;
-    int m_queue;
 };
 
 #endif

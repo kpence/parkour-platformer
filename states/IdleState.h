@@ -7,15 +7,12 @@
 class IdleState : public State
 {
 public:
-    enum { Q_NONE, Q_READY, Q_ROLL, Q_TURN };
-
     IdleState(Entity &parent);
 
 	void update(float dt);
 	std::unique_ptr<State> handle_input();
 
 private:
-    int m_queue;
 };
 
 #endif

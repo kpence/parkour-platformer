@@ -8,8 +8,6 @@
 class SkidState : public State
 {
 public:
-    enum { Q_NONE, Q_ROLL, Q_JUMP };
-
     SkidState(Entity &parent);
 
 	void update(float dt);
@@ -17,7 +15,6 @@ public:
 
 private:
     bool can_q_roll;
-    int m_queue;
     sf::Time timer;
 };
 

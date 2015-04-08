@@ -8,7 +8,6 @@
 class WallJumpState : public State
 {
 public:
-    enum { Q_NONE, Q_DIVE };
     WallJumpState(Entity &parent);
 
 	void update(float dt);
@@ -16,7 +15,6 @@ public:
 
 private:
     sf::Time timer;
-    int m_queue;
 };
 
 #endif

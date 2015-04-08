@@ -37,6 +37,13 @@ void Animation::add_frame(sf::IntRect intrect) {
 	frames.push_back(intrect);
 }
 
+void Animation::add_frame(sf::IntRect grid_rect, sf::IntRect crop_rect) {
+    int col = grid_rect.left, row = grid_rect.top
+        , w = grid_rect.width,  h = grid_rect.height;
+    add_frame(sf::IntRect( crop_rect.left+col*w, crop_rect.top+row*h
+             , crop_rect.width-crop_rect.left, crop_rect.height-crop_rect.top ));
+}
+
 void Animation::add_frame(int col, int row, int w, int h) {
     add_frame(sf::IntRect(col*w, row*h, w, h));
 }

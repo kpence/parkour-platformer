@@ -22,6 +22,7 @@ Player::Player() {
 
     /* Animations */
     std::string s, dir_str;
+    int gs = PLAYER_TEXTURE_GRID_SIZE;
 	m_animation->set_offset({0,height()-PLAYER_TEXTURE_GRID_SIZE});
 
     for (bool is_right : {true,false})
@@ -30,81 +31,80 @@ Player::Player() {
 
         s = "wall-slide"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(10), AnimationType::LOOP, !is_right);
-            m_animation->animation(s)->add_frame( 4,6, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
-            m_animation->animation(s)->add_frame( 4,6, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
+            m_animation->animation(s)->add_frame({4,6, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({4,6, gs,gs}, {0,0,gs,gs});
 
         s = "roll"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.02), AnimationType::ONCE, !is_right);
         for (int i = 0; i < 10; ++i)
-            m_animation->animation(s)->add_frame( i,7,    PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
+            m_animation->animation(s)->add_frame({i,7, gs,gs}, {0,0,gs,gs});
 
         s = "dive"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.1), AnimationType::LOOP, !is_right);
         for (int i = 0; i < 3; ++i)
-            m_animation->animation(s)->add_frame( i,8, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({i,8, gs,gs}, {0,0,gs,gs});
 
         s = "turn-around"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.025), AnimationType::ONCE, !is_right);
-            m_animation->animation(s)->add_frame( 2, 4, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 0, 3, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 0, 3, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({2,4, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({0,3, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({0,3, gs,gs}, {0,0,gs,gs});
 
         s = "edge-lean"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.3), AnimationType::LOOP, !is_right);
-            m_animation->animation(s)->add_frame( 1, 2, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 2, 2, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 3, 2, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({1,2, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({2,2, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({3,2, gs,gs}, {0,0,gs,gs});
 
         s = "idle"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.2), AnimationType::LOOP, !is_right);
-            m_animation->animation(s)->add_frame( 1, 4, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 2, 4, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({1,4, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({2,4, gs,gs}, {0,0,gs,gs});
 
         s = "turn-to-prep-jump"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.025), AnimationType::ONCE, !is_right);
-            m_animation->animation(s)->add_frame( 5,6, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({5,6, gs,gs}, {0,0,gs,gs});
 
         s = "land"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.1), AnimationType::ONCE, !is_right);
-            m_animation->animation(s)->add_frame( 1,7, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 0,7, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({1,7, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({0,7, gs,gs}, {0,0,gs,gs});
 
         s = "prep-jump"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.05), AnimationType::ONCE, !is_right);
-            m_animation->animation(s)->add_frame( 0,7, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 1,7, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({0,7, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({1,7, gs,gs}, {0,0,gs,gs});
 
         s = "jump"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.1), AnimationType::ONCE, !is_right);
         for (int i = 3; i < 5; ++i)
-            m_animation->animation(s)->add_frame( i,5, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({i,5, gs,gs}, {0,0,gs,gs});
 
         s = "in-air"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.1), AnimationType::LOOP, !is_right);
         for (int i = 0; i < 3; ++i)
-            m_animation->animation(s)->add_frame( i,5, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({i,5, gs,gs}, {0,0,gs,gs});
 
         s = "skid"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.2), AnimationType::LOOP, !is_right);
-            m_animation->animation(s)->add_frame( 0, 2, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
-            m_animation->animation(s)->add_frame( 0, 2, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE );
+            m_animation->animation(s)->add_frame({0,2, gs,gs}, {0,0,gs,gs});
+            m_animation->animation(s)->add_frame({0,2, gs,gs}, {0,0,gs,gs});
 
-        //int walk-frame-speed = 0.0175;
-        float walk_frame_speed = 0.0165;
+        float walk_frame_speed = 0.0165; // 0.0175
         s = "init-walk"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(walk_frame_speed), AnimationType::ONCE, !is_right);
         for (int i = 0; i < 10; ++i)
-            m_animation->animation(s)->add_frame( i,0, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
+            m_animation->animation(s)->add_frame({i,0, gs,gs}, {0,0,gs,gs});
 
         s = "walk"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(walk_frame_speed), AnimationType::LOOP, !is_right);
         for (int i = 0; i < 10; ++i)
-            m_animation->animation(s)->add_frame( i,1, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
+            m_animation->animation(s)->add_frame({i,1, gs,gs}, {0,0,gs,gs});
 
         s = "run"; s += dir_str;
         m_animation->add_animation(s, PLAYER_TEXTURE, sf::seconds(0.012), AnimationType::LOOP, !is_right);
         for (int i = 0; i < 10; ++i)
-            m_animation->animation(s)->add_frame( i,1, PLAYER_TEXTURE_GRID_SIZE,PLAYER_TEXTURE_GRID_SIZE);
+            m_animation->animation(s)->add_frame({i,1, gs,gs}, {0,0,gs,gs});
 
     }
 

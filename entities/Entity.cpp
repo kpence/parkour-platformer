@@ -44,3 +44,7 @@ float Entity::width() {
 float Entity::height() {
 	return m_height;
 }
+
+int Entity::solid_type() {
+	return m_solid_type;
+}

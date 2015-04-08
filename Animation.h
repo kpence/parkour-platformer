@@ -17,6 +17,7 @@ public:
 	void update(float dt);
 
 	void add_frame(sf::IntRect intrect);
+	void add_frame(sf::IntRect grid_rect, sf::IntRect crop_rect);
 	void add_frame(int col, int row, int w, int h);
 	sf::IntRect current_frame();
 	int frame_size();

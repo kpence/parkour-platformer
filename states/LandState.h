@@ -8,8 +8,6 @@
 class LandState : public State
 {
 public:
-    enum { Q_NONE, Q_ROLL, Q_JUMP };
-
     LandState(Entity &parent);
 
 	void update(float dt);
@@ -17,7 +15,6 @@ public:
 
 private:
     sf::Time timer;
-    int m_queue;
     bool finished, can_q_roll;
 };
 

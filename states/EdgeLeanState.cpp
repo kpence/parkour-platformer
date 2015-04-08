@@ -3,7 +3,7 @@
 #include "StateIncludes.h"
 
 EdgeLeanState::EdgeLeanState(Entity &parent)
-  : State(parent, "edge-lean"), bp({0,0}), active(false), turning(false), can_q_roll(false), m_queue(Q_NONE) {
+  : State(parent, "edge-lean"), bp({0,0}), active(false), turning(false), can_q_roll(false) {
       parent.m_physics->set_dx(parent.m_physics->dx()/4);
 }
 
@@ -24,10 +24,11 @@ std::unique_ptr<State> EdgeLeanState::handle_input() {
 
     if (animation_id == "edge-lean" && active)
     {
+        // GET_QUEUE_STATE doesn't work here
         if (m_queue == Q_JUMP)
             return std::move(std::unique_ptr<State>(new JumpState(m_parent)));
 
-        if (!m_parent.m_input->key_down("roll") && m_queue == Q_ROLL)
+        if (m_queue == Q_ROLL && !m_parent.m_input->key_down("roll"))
             return std::move(std::unique_ptr<State>(new JumpState(m_parent)));
 
         if (turning)

@@ -3,7 +3,7 @@
 #include "StateIncludes.h"
 
 IdleState::IdleState(Entity &parent)
-  : State(parent, "idle"), m_queue(Q_NONE) {
+  : State(parent, "idle") {
 }
 
 std::unique_ptr<State> IdleState::handle_input() {

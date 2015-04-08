@@ -40,7 +40,7 @@ public:
 	float m_friction;
 
     // Movement
-    std::array<float, MoveType::Count> m_max_speeds;
+    std::array<float, MoveType::MoveCount> m_max_speeds;
     void move(int type, float acceleration, int dir = D_COUNT);
     void move_dir(float acceleration, int dir);
 
@@ -49,6 +49,7 @@ public:
 	void update(float dt);
 
     bool m_can_double_jump;
+    bool m_dropping;
 
 private:
 	sf::Vector2f m_dpos;

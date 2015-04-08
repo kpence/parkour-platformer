@@ -37,6 +37,7 @@ public:
 	void  set_height(float height);
 	float width();
 	float height();
+	int solid_type();
 
 	PhysicsPtr      m_physics   = nullptr;
 	AnimationPtr    m_animation = nullptr;
@@ -44,10 +45,11 @@ public:
 	InputPtr        m_input     = nullptr;
 
 protected:
-	int          m_direction = 0;
+	int          m_direction = D_RIGHT;
 	sf::Vector2f m_position;
 	float        m_width  = 0;
 	float        m_height = 0;
+	int          m_solid_type = SolidType::Solid;
 };
 
 #endif

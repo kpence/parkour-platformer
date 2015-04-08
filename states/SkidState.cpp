@@ -3,7 +3,7 @@
 #include "StateIncludes.h"
 
 SkidState::SkidState(Entity &parent)
-  : State(parent, "skid"), can_q_roll(false), m_queue(Q_NONE), timer(sf::Time::Zero)
+  : State(parent, "skid"), can_q_roll(false), timer(sf::Time::Zero)
 {
     parent.m_physics->set_friction(1);
 }
@@ -20,13 +20,8 @@ std::unique_ptr<State> SkidState::handle_input() {
         allow_change_dir();
         m_parent.m_physics->set_friction(1.5);
 
-        if (m_queue == Q_ROLL && !m_parent.m_input->key_down("roll"))
-            return std::move(std::unique_ptr<State>(new RollState(m_parent)));
-
-        else if (m_queue == Q_JUMP)
-            return std::move(std::unique_ptr<State>(new JumpState(m_parent)));
-
-        return std::move(std::unique_ptr<State>(new IdleState(m_parent)));
+        // Handle queue
+        return std::move(get_queue_state(Q_IDLE));
     }
 
     // q_roll

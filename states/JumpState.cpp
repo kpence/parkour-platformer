@@ -4,8 +4,7 @@
 #include "StateIncludes.h"
 
 JumpState::JumpState(Entity &parent) : State(parent, "prep-jump")
-                                     , timer(sf::Time::Zero)
-                                     , m_queue(Q_NONE) {
+                                     , timer(sf::Time::Zero), hor_move(false) {
 }
 
 std::unique_ptr<State> JumpState::handle_input() {
@@ -30,7 +29,13 @@ std::unique_ptr<State> JumpState::handle_input() {
         for (int dir : {D_RIGHT,D_LEFT})
         if (m_parent.m_input->key_down((dir == D_RIGHT) ? "right":"left"))
         {
-            m_parent.m_physics->move(MoveType::AirMove, (m_parent.dir() == dir) ? 1:.4, dir);
+            if (hor_move)
+                m_parent.m_physics->move(MoveType::AirMove, (m_parent.dir() == dir) ? 1:.4, dir); // 1:.4
+            else if (timer < sf::seconds(.15)) {
+                m_parent.m_physics->set_dx((m_parent.dir()==D_RIGHT)? 4:-4);
+                m_parent.m_physics->move(MoveType::AirMove, (m_parent.dir() == dir) ? 14:6, dir);
+                hor_move = true;
+            }
         }
     }
 

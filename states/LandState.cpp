@@ -3,7 +3,7 @@
 #include "StateIncludes.h"
 
 LandState::LandState(Entity &parent)
-  : State(parent, "land"), m_queue(Q_NONE), finished(false), can_q_roll(false) {
+  : State(parent, "land"), finished(false), can_q_roll(false) {
 }
 
 std::unique_ptr<State> LandState::handle_input() {
@@ -17,23 +17,8 @@ std::unique_ptr<State> LandState::handle_input() {
     if (finished && timer >= sf::seconds(.1)) {
         allow_change_dir();
 
-        // IDLE
-        if (m_queue == Q_NONE)
-            return std::move(std::unique_ptr<State>(new IdleState(m_parent)));
-
-        // JUMP
-        else if (m_queue == Q_JUMP)
-            return std::move(std::unique_ptr<State>(new JumpState(m_parent)));
-
-        // ROLL
-        else if (!m_parent.m_input->key_down("roll") && m_queue == Q_ROLL)
-        {
-            m_parent.m_animation->play_animation_dir("idle");
-            return std::move(std::unique_ptr<State>(new RollState(m_parent)));
-        }
-
-        // Otherwise: IDLE
-        return std::move(std::unique_ptr<State>(new IdleState(m_parent)));
+        // Handle queue
+        return std::move(get_queue_state(Q_IDLE));
     }
 
     // q_roll
@@ -55,7 +40,7 @@ std::unique_ptr<State> LandState::handle_input() {
     for (int dir : { D_RIGHT, D_LEFT })
      if (m_parent.m_input->key_down((dir == D_RIGHT) ? "right":"left"))
     {
-        int i = (m_parent.dir() == dir) ? 2:1;
+        float i = (m_parent.dir() == dir) ? 2.25:1;
         m_parent.m_physics->set_dx((dir == D_RIGHT) ? i:-i);
     }
 

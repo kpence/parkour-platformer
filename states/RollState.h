@@ -8,8 +8,6 @@
 class RollState : public State
 {
 public:
-    enum { Q_NONE, Q_ROLL, Q_JUMP };
-
     RollState(Entity &parent);
 
 	void update(float dt);
@@ -18,7 +16,6 @@ public:
 private:
     sf::Time timer;
     bool can_q_roll;
-    int m_queue;
 };
 
 #endif

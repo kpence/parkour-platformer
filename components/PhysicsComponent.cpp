@@ -7,13 +7,13 @@
 
 PhysicsComponent::PhysicsComponent(Entity* parent) : Component(parent)
     , m_h_speed(100), m_v_speed(32), m_max_h_speed(3.5), m_max_v_speed(30), m_gravity(1.5), m_friction(1.5)
-    , m_can_double_jump(true)
+    , m_can_double_jump(true), m_dropping(false)
     , m_dpos({0,0}), m_dx(0), m_dy(0)
 {
     m_max_speeds[MoveType::Move]     = 3.5;
     m_max_speeds[MoveType::Walk]     = 4.5;
-    m_max_speeds[MoveType::Run]      = 10;
-    m_max_speeds[MoveType::Roll]     = 6;
+    m_max_speeds[MoveType::Run]      = 11;
+    m_max_speeds[MoveType::Roll]     = 7;
     m_max_speeds[MoveType::AirMove]  = 6;
     m_max_speeds[MoveType::WallJump] = 7;
     for (auto& cd : collision_at_dir) cd = true;
@@ -73,12 +73,14 @@ void PhysicsComponent::store_collisions_at_point(float x, float y)
         if (m_parent == se) continue;
         if (m_dy == 0 && m_dx == 0) break;
 
+        if (se->solid_type() == SolidType::Droppable && m_dropping) continue;
+
         sf::Vector2f sp = {se->x() + se->width(), se->y() + se->height()};
         /*Checking vertical collision*/
         if ( m_parent->x() < sp.x && pp.x > se->x() )
         {
             /* Hitting ceiling */
-            if (!collision_at_dir[D_UP] && m_dy < 0
+            if (!collision_at_dir[D_UP] && m_dy < 0 && se->solid_type() != SolidType::Droppable
                  && (m_parent->y() < sp.y  ||  m_parent->y()+m_dpos.y < sp.y) && m_parent->y() > sp.y)
             {
                 m_dpos.y = std::max(1 + se->y() + se->height() - m_parent->y(), m_dpos.y);
@@ -96,6 +98,8 @@ void PhysicsComponent::store_collisions_at_point(float x, float y)
             }
 
         }
+
+        if (se->solid_type() == SolidType::Droppable) continue;
 
         int gpy = (on_ground()) ? pp.y : pp.y+m_dpos.y;
 
